@@ -1,0 +1,91 @@
+
+# Análisis del Dataset COVID-19 y Diabetes
+
+## 1. Importación del Dataset
+Primero, cargamos el dataset de COVID-19 y diabetes desde un archivo Excel usando la librería `pandas`. Este es un paso inicial esencial para poder trabajar con los datos y realizar cualquier análisis.
+
+```{python}
+# Importando la librería pandas
+import pandas as pd
+
+# Cargando el dataset
+df = pd.read_excel("/mnt/data/covid_19_diabetes.xlsx")
+
+# Mostrando las primeras filas del dataset
+df.head()
+```
+
+## 2. Exploración Inicial de los Datos
+Una vez cargado el dataset, es importante explorar las primeras filas para entender la estructura de los datos. Este paso nos permite verificar qué columnas están presentes y si hay algún valor extraño o faltante.
+
+```{python}
+# Exploración inicial del dataset
+df_info = df.info()  # Información general sobre el dataset
+df_description = df.describe()  # Estadísticas descriptivas
+df.head()  # Primeras filas
+```
+
+## 3. Limpieza de Datos
+
+### 3.1. Eliminación de valores faltantes
+Una parte crucial del proceso de limpieza de datos es manejar los valores faltantes. En este caso, vamos a eliminar las filas con valores nulos. Dependiendo del dataset, también podríamos optar por imputar estos valores, pero para este ejemplo, procederemos con la eliminación.
+
+```{python}
+# Eliminando las filas con valores faltantes
+df_cleaned = df.dropna()
+df_cleaned.info()
+```
+
+### 3.2. Limpieza de nombres y categorías
+En muchos casos, los datos vienen con nombres de columnas o categorías que no son uniformes o contienen errores tipográficos. Es importante normalizar estos nombres.
+
+```{python}
+# Normalizando los nombres de las columnas (limpiar posibles errores)
+df_cleaned.columns = df_cleaned.columns.str.strip().str.lower().str.replace(' ', '_')
+df_cleaned.head()
+
+# Limpieza de categorías: ejemplo de agrupar categorías menores
+df_cleaned['diabetes_type'] = df_cleaned['diabetes_type'].replace(['Type I', 'Type 1'], 'Type 1')
+df_cleaned['diabetes_type'] = df_cleaned['diabetes_type'].replace(['Type II', 'Type 2'], 'Type 2')
+df_cleaned['diabetes_type'].value_counts()
+```
+
+## 4. Transformación de Datos
+
+### 4.1. Colapsar categorías
+En ocasiones, es útil agrupar ciertas categorías en una sola para simplificar el análisis o para reducir el ruido en los datos. Aquí agrupamos ciertas categorías menores en una categoría llamada "Otros".
+
+```{python}
+# Colapsando categorías menos frecuentes en "Otros"
+df_cleaned['region'] = df_cleaned['region'].apply(lambda x: x if x in ['North', 'South', 'East', 'West'] else 'Other')
+df_cleaned['region'].value_counts()
+```
+
+### 4.2. Transformación de columnas
+A veces, se necesita transformar los datos para facilitar el análisis. Por ejemplo, convertir una columna de fechas en un formato estándar.
+
+```{python}
+# Transformando una columna de fechas (si la hay)
+df_cleaned['date'] = pd.to_datetime(df_cleaned['date'], errors='coerce')
+df_cleaned.head()
+```
+
+## 5. Exportación del Dataset Limpio
+Una vez que los datos han sido limpiados y transformados, es crucial exportarlos para su posterior uso. Podemos exportar el dataset limpio a un nuevo archivo Excel.
+
+```{python}
+# Exportando el dataset limpio
+df_cleaned.to_excel("/mnt/data/cleaned_covid_19_diabetes.xlsx", index=False)
+```
+
+# Conclusión
+En este proceso, hemos importado, limpiado y transformado el dataset de COVID-19 y diabetes. La limpieza de datos es un paso esencial para garantizar que los análisis posteriores sean precisos y que los datos estén listos para su uso. Finalmente, hemos exportado el dataset limpio para su uso posterior.
+
+
+
+**Integrantes del Equipo 7:**
+- Llancari Nivin, Meyli
+- Vera Fonseca, July
+- Alejo Huaman, Melissa
+- Flores Diaz, Christian
+- Ccuro Minaya, Lucia
