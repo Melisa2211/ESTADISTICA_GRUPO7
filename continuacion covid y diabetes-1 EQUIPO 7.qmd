@@ -1,0 +1,88 @@
+---
+title: "Primera practica-equipo 7"
+format: html
+editor: visual
+---
+
+**GRUPO 7:**
+
+-Llancari Nivin, Meyli
+
+-Vera Fonseca, July
+
+-Alejo Huaman, Melissa
+
+\- Flores Diaz, Christian
+
+-Ccuro Minaya, Lucia
+
+***ACTIVIDAD 1:***
+
+[*PREGUNTA 1:*]{.underline}
+
+-   La frecuencia respiratoria (F.R) de 8 parientes de una familia. Se desea hallar las siguientes funciones:
+
+```{r}
+F.R= c(12,16,25,28,18,10,15,22)
+
+```
+
+**FUNCION 1:** *Varianza*
+
+Describir: Es una medida de dispersión que representa la variabilidad de una serie de datos con respecto a su media. Se calcula como la suma de los cuadrados de los residuos dividido por las observaciones totales.
+
+```{r}
+var(F.R)
+
+```
+
+**FUNCION 2:** *Rango*
+
+Describir: Valoracion numérica que permite indicar la diferencia existente entre los valores mínimos y máximos de cualquier escala.
+
+```{r}
+range(F.R)
+```
+
+**FUNCION 3:** *Quantiles*
+
+Describir: Medida estadística que divide un conjunto de datos ordenados en partes iguales, de modo que cada parte contenga la misma proporción de valores. Los quantiles más comunes son cuartiles, deciles y percentiles.
+
+```{r}
+quantile(F.R)
+```
+
+[*PREGUNTA 2:*]{.underline}
+
+```{r}
+#install.packages("car")
+#install.packages("dplyr")
+#install.packages("readr")
+```
+
+```{r}
+library(car)
+library(dplyr)
+library(readr)
+```
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
